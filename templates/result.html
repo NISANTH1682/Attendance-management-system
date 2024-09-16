@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .result-table th {
+            background-color: #f0f0f0;
+        }
+        .absent-students {
+            font-size: 14px;
+            color: red;
+            font-weight: bold;
+        }
+        .absent-count {
+            font-size: 14px;
+            color: green;
+            font-weight: bold;
+        }
+        .total-counts {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .back-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .back-btn:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Attendance Results</h1>
+        </div>
+        <h2>Absenteeism by Subject:</h2>
+        <ul>
+            {% for subject, count in attendance.items() if subject != 'total' %}
+                <li>{{ subject }}:
+                    <ul>
+                        <li class="absent-count">Absent: {{ count.absent }} students</li>
+                        <li>Absent Students:
+                            <ul>
+                                {% for student in count.absent_students %}
+                                    <li class="absent-students">{{ student }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="total-counts">
+            <p><strong>Total No. of Present:</strong> {{ attendance.total.present }}</p>
+            <p><strong>Total No. of Absent:</strong> {{ attendance.total.absent }}</p>
+        </div>
+        <a href="/" class="back-btn">Back to Form</a>
+    </div>
+</body>
+</html>

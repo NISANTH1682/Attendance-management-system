@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .form-table th, .form-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .form-table th {
+            background-color: #f0f0f0;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Attendance Form</h1>
+        </div>
+        <form action="" method="post">
+            <table class="form-table">
+                <tr>
+                    <th>Subjects</th>
+                    {% for student in students %}
+                        <th>{{ student }}</th>
+                    {% endfor %}
+                </tr>
+                {% for subject in subjects %}
+                    <tr>
+                        <th>{{ subject }}</th>
+                        {% for student in students %}
+                            <td>
+                                <input type="checkbox" name="{{ student }}_{{ subject }}_present" id="{{ student }}_{{ subject }}_present">
+                                <label for="{{ student }}_{{ subject }}_present">Present</label>
+                                <input type="checkbox" name="{{ student }}_{{ subject }}_absent" id="{{ student }}_{{ subject }}_absent">
+                                <label for="{{ student }}_{{ subject }}_absent">Absent</label>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+    </div>
+</body>
+</html>
